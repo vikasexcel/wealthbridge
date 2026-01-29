@@ -6,11 +6,10 @@ const portfolioSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    assets: [{
-        assetId: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'Asset'
+    investments: [{
+        asset: {
+            type: String,
+            required: true
         },
         quantity: {
             type: Number,
