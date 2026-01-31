@@ -7,7 +7,7 @@ const portfolioSchema = new mongoose.Schema({
         ref: 'User'
     },
     investments: [{
-        asset: {
+        assetName: {
             type: String,
             required: true
         },
@@ -40,6 +40,15 @@ const portfolioSchema = new mongoose.Schema({
 portfolioSchema.pre('save', function(next) {
     this.updatedAt = Date.now();
     next();
+});
+
+// Error handling for validation
+portfolioSchema.post('save', function(error, doc, next) {
+    if (error) {
+        next(new Error('Error saving portfolio: ' + error.message));
+    } else {
+        next();
+    }
 });
 
 const Portfolio = mongoose.model('Portfolio', portfolioSchema);
